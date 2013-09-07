@@ -1,0 +1,364 @@
+<AJDF:output> include file="header.html" </AJDF:output>
+
+  <div id="right_content">
+
+
+<form action="?do=updateparticipant&part_id=<AJDF:output>$smarty.get.id</AJDF:output>" method="post" name="update" id="update">
+
+    <table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
+      <tr>
+        <td valign="top" align="left" style="padding:5px 0 10px 0;">&nbsp;
+
+
+<AJDF:output>if $smarty.session.adduser !=''</AJDF:output>
+		<div class="status success">
+            <p class="closestatus"><a title="Close" href="">x</a></p>
+            <p><img alt="Success" src="images/icons/icon_success.png"><span>Success!</span> <AJDF:output> $smarty.session.adduser</AJDF:output>.</p>
+          </div><AJDF:output>/if</AJDF:output>
+
+</td>
+      </tr>
+      <tr>
+        <td valign="top" align="left"><div>
+            <div class="headings altheading">
+              <h2>Edit Participants</h2>
+            </div>
+            <div class="contentbox">
+              <table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td align="left" valign="top" width="50%" style="padding-right:25px;">
+    <h2 class="quck-txt">Quick Info</h2>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr class="row1">
+                  <td valign="middle" align="right" class="input_txt"><span class="err">*</span> First Name :</td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$participant.fname</AJDF:output>" name="up_fname" /></br><span class="err"><AJDF:output>$errmsg.up_fname</AJDF:output></span></td>
+                </tr>
+
+		 <tr class="row1">
+                  <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Last Name :</td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$participant.lname</AJDF:output>" name="up_lname"/></br><font color="Red" size="+1"><span class="err"><AJDF:output>$errmsg.up_lname</AJDF:output></span></font></td>
+                </tr> 
+		<tr class="row1">
+                  <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Mobile No :</td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$participant.mobile_num</AJDF:output>" name="up_mobile" /></br><font color="Red" size="+1"><span class="err"><AJDF:output>$errmsg.up_mobile</AJDF:output></span> </font></td>
+                </tr> 
+		<tr class="row1">
+                  <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Email-Id :</td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$participant.email_id</AJDF:output>" name="up_email" /></br><font color="Red" size="+1"><span class="err"><AJDF:output>$errmsg.up_email</AJDF:output></span> </font></td>
+                </tr> 
+
+	
+		<tr class="row1">
+                  <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Gender :</td>
+                  <td valign="top" align="left" class="input_txt"><input type="radio" name="up_gender" value="0" class="input_txt" <AJDF:output>if $participant.gender eq 0</AJDF:output>checked<AJDF:output>/if</AJDF:output>>Male&nbsp;&nbsp;&nbsp;<input type="radio" name="up_gender" value="1" class="input_txt" <AJDF:output>if $participant.gender eq 1</AJDF:output>checked<AJDF:output>/if</AJDF:output>>Female&nbsp;&nbsp;&nbsp;<input type="radio" name="up_gender" value="2" class="input_txt" <AJDF:output>if $participant.gender eq 2</AJDF:output>checked<AJDF:output>/if</AJDF:output>>Transgender</td>
+                </tr>
+		 <tr class="row1">
+                  <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Age :</td>
+                  <td valign="top" align="left" class="input_txt"><span class="err"><AJDF:output>$age</AJDF:output></span></td>
+                </tr>
+		
+                <tr class="row1">
+                  <td valign="middle" align="right" class="input_txt"><span class="err">*</span> City :</td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$participant.city</AJDF:output>" name="up_city"/></br><font color="Red" size="+1"><span class="err"><AJDF:output>$errmsg.up_city</AJDF:output></span> </font></td>
+                </tr>
+		 <tr class="row1">
+                  <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Education :</td>
+                  <td valign="top" align="left" class="input_txt"><select name="up_education" class="input_cmbbx1">
+                    <option value="School" <AJDF:output>if $participant.education eq 'School'</AJDF:output>selected<AJDF:output>/if</AJDF:output>>School</option>
+			<option value="Some Collage" <AJDF:output>if $participant.education eq 'Some Collage'</AJDF:output>selected<AJDF:output>/if</AJDF:output>>Some Collage</option>
+			<option value="Professional Degree" <AJDF:output>if $participant.education eq 'Professional Degree'</AJDF:output>selected<AJDF:output>/if</AJDF:output>>Professional Degree</option>
+			<option value="Master Degree" <AJDF:output>if $participant.education eq 'Master Degree'</AJDF:output>selected<AJDF:output>/if</AJDF:output>>Master Degree</option>
+                   </select></td>
+                </tr>
+
+		 <tr class="row1">
+                  <td valign="top" align="right" class="input_txt"><span class="err">*</span> Note :</td>
+                  <td valign="top" align="left" class="input_txt"><textarea class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');"  style="width: 220px; height: 89px;" name="up_note"/><AJDF:output>$participant.note</AJDF:output></textarea></br><font color="Red" size="+1"><span class="err"><AJDF:output>$errmsg.up_note</AJDF:output></span> </font></td>
+                </tr>
+                 <!--<tr class="row1">
+                  <td valign="middle" align="right" class="input_txt">Start Date :</td>
+                  <td valign="top" align="left" class="input_txt">
+                  <table width="260" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="70" align="center" valign="top" style="border-bottom:none;">DD</td>
+    <td width="70" align="center" valign="top" style="border-bottom:none;">MM</td>
+    <td width="160" align="center" valign="top" style="border-bottom:none;">YY</td>
+  </tr>
+  <tr>
+    <td align="left" valign="top" style="border-bottom:none;"><select name="select2" class="input_cmbbx_cal1">
+                    <option selected="selected">01</option>
+                    <option>02</option>
+                    <option>03</option>
+                  </select></td>
+    <td align="left" valign="top" style="border-bottom:none;"><select name="select2" class="input_cmbbx_cal1">
+                    <option selected="selected">10</option>
+                    <option>11</option>
+                    <option>12</option>
+                  </select></td>
+    <td align="left" valign="top" style="border-bottom:none;"><select name="select2" class="input_cmbbx_cal2">
+                    <option selected="selected">1985</option>
+                    <option>1986</option>
+                    <option>1987</option>
+                  </select></td>
+  </tr>
+ </table>
+
+                  </td>
+                </tr>-->
+                 
+               <!--  <tr class="row1">
+                  <td valign="top" align="right">&nbsp;</td>
+                  <td valign="top" align="left"><input type="submit" class="submit_btn1" value="Send Stream" /></td>
+                </tr>-->
+              </table></td>
+    <td align="left" valign="top"> <h2 class="quck-txt">More Info</h2>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+              
+             
+                <tr class="row1">
+                  <td valign="top" align="right" class="input_txt"><span class="err">*</span> Medical Details :</td>
+                  <td valign="top" align="left" class="input_txt"><textarea class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');"  style="width: 220px; height: 89px;" name="up_medical"/><AJDF:output>$participant.medical_details</AJDF:output></textarea></br><font color="Red" size="+1"><span class="err"><AJDF:output>$errmsg.up_medical</AJDF:output></span></font></td>
+                </tr>
+
+
+<tr><td><p class="quck-txt">Texting&nbsp;Preference
+</p></td></tr>
+
+
+
+		  <tr class="row1">
+                  <td valign="middle" align="right" class="input_txt"><span class="err">*</span> Messaging Frequency
+ :</td>
+                  <td valign="top" align="left" class="input_txt"><select name="up_frequency" class="input_cmbbx1">
+                   <option value="Daily Twice" <AJDF:output>if $participant.messaging_frequency eq 'Daily Twice'</AJDF:output>selected<AJDF:output>/if</AJDF:output>>Daily Twice</option>
+			<option value="Once a Day" <AJDF:output>if $participant.messaging_frequency eq 'Once a Day'</AJDF:output>selected<AJDF:output>/if</AJDF:output>>Once a Day</option>
+			<option value="Once in a week" <AJDF:output>if $participant.messaging_frequency eq 'Once in a week'</AJDF:output>selected<AJDF:output>/if</AJDF:output>>Once in a week</option>
+			<option value="No Preference" <AJDF:output>if $participant.messaging_frequency eq 'No Preference'</AJDF:output>selected<AJDF:output>/if</AJDF:output>>No Preference</option>
+                   </select></td>
+                </tr>
+
+<tr><td><p class="quck-txt">Group</p></td></tr>
+
+<tr class="row1"><td colspan="2"><p style=" line-height: 18px; padding: 1px 0pt; text-align: justify">Group is the internal classification for the better understanding of Participant's Demographics.<a href="#" onclick="javascript:CreateGroup()">[Create New Group]</a></p></td></tr>
+
+
+
+    <tr class="row1">
+                  <td valign="top" align="right" class="input_txt"><span class="err">*</span> Select Group :</td>
+                  <td valign="top" align="left" class="input_txt"><AJDF:output>$group</AJDF:output></br><font color="Red" size="+1"><span class="err"><AJDF:output>$errmsg.up_group</AJDF:output></span></font></td>
+                </tr>            
+ </table>
+
+                  </td>
+                </tr>
+                 
+                 <tr class="row1">
+                  <td valign="top" align="center">&nbsp;</td>
+                  <td valign="top" align="left"><input type="submit" class="submit_btn2" value="Update Participant" onclick="update.submit()"></td>
+                </tr>
+              </table></td>
+  </tr>
+
+
+
+</table>
+
+              
+
+            </div></form>
+
+
+<AJDF:output>if $smarty.get.type eq '1'</AJDF:output>
+
+
+<form action="?do=addparticipants&action=insert&type=<AJDF:output>$smarty.get.type</AJDF:output>" method="post" name="update" id="update">
+
+    <table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
+      <tr>
+        <td valign="top" align="left" style="padding:5px 0 10px 0;">&nbsp;
+
+
+<AJDF:output>if $smarty.session.adduser !=''</AJDF:output>
+		<div class="status success">
+            <p class="closestatus"><a title="Close" href="">x</a></p>
+            <p><img alt="Success" src="images/icons/icon_success.png"><span>Success!</span> <AJDF:output> $smarty.session.adduser</AJDF:output>.</p>
+          </div><AJDF:output>/if</AJDF:output>
+
+<!--<div class="info_div">
+            <label><img src="images/icons/icon_edit.png" alt="Edit" /> Edit</label>
+            <label><img src="images/icons/icon_approve.png" alt="Approve" /> Approve</label>
+            <label><img src="images/icons/icon_unapprove.png" alt="Unapprove" /> Unapprove</label>
+            <label><img src="images/icons/icon_delete.png" alt="Delete" /> Remove</label>
+          </div>--></td>
+      </tr>
+      <tr>
+        <td valign="top" align="left"><div>
+            <div class="headings altheading">
+              <h2>Add Participants</h2>
+            </div>
+            <div class="contentbox">
+              <table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td align="left" valign="top" width="50%" style="padding-right:25px;">
+    <h2 class="quck-txt">Quick Infodsfdsf</h2>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr class="row1">
+                  <td valign="middle" align="right" class="input_txt">First Name :</td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$smarty.session.part_fname</AJDF:output>" name="fname" /></br><font color="Red" size="+1"><AJDF:output>$errmsg.fname</AJDF:output></font></td>
+                </tr>
+
+		 <tr class="row1">
+                  <td valign="middle" align="right" class="input_txt">Last Name :</td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$smarty.session.part_lname</AJDF:output>" name="lname"/></br><font color="Red" size="+1"><AJDF:output>$errmsg.lname</AJDF:output></font></td>
+                </tr> 
+		<tr class="row1">
+                  <td valign="middle" align="right" class="input_txt">Mobile No :</td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$smarty.session.part_mobile</AJDF:output>" name="mobile" /></br><font color="Red" size="+1"><AJDF:output>$errmsg.mobile</AJDF:output></font></td>
+                </tr> 
+		<tr class="row1">
+                  <td valign="middle" align="right" class="input_txt">Email-Id :</td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$smarty.session.part_email</AJDF:output>" name="email" /></br><font color="Red" size="+1"><AJDF:output>$errmsg.email</AJDF:output></font></td>
+                </tr> 
+
+	
+		<tr class="row1">
+                  <td valign="middle" align="right" class="input_txt">Gender :</td>
+                  <td valign="top" align="left" class="input_txt"><input type="radio" name="gender" value="0" class="input_txt" checked="true">Male&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="1" class="input_txt">Female&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="2" class="input_txt">Transgender</td>
+                </tr>
+		 <tr class="row1">
+                  <td valign="middle" align="right" class="input_txt">Age :</td>
+                  <td valign="top" align="left" class="input_txt"><AJDF:output>$age</AJDF:output></td>
+                </tr>
+		
+                <tr class="row1">
+                  <td valign="middle" align="right" class="input_txt">City :</td>
+                  <td valign="top" align="left" class="input_txt"><input type="text" class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$smarty.session.part_city</AJDF:output>" name="city"/></br><font color="Red" size="+1"><AJDF:output>$errmsg.city</AJDF:output></font></td>
+                </tr>
+		 <tr class="row1">
+                  <td valign="middle" align="right" class="input_txt">Education :</td>
+                  <td valign="top" align="left" class="input_txt"><select name="education" class="input_cmbbx1">
+                    <option selected="selected" value="School">School</option>
+			<option value="Some Collage">Some Collage</option>
+			<option value="Professional Degree">Professional Degree</option>
+			<option value="Master Degree">Master Degree</option>
+                   </select></td>
+                </tr>
+
+		 <tr class="row1">
+                  <td valign="top" align="right" class="input_txt">Note :</td>
+                  <td valign="top" align="left" class="input_txt"><textarea class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');"  style="width: 220px; height: 89px;" name="note"/><AJDF:output>$smarty.session.part_note</AJDF:output></textarea></br><font color="Red" size="+1"><AJDF:output>$errmsg.note</AJDF:output></font></td>
+                </tr>
+                 <!--<tr class="row1">
+                  <td valign="middle" align="right" class="input_txt">Start Date :</td>
+                  <td valign="top" align="left" class="input_txt">
+                  <table width="260" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="70" align="center" valign="top" style="border-bottom:none;">DD</td>
+    <td width="70" align="center" valign="top" style="border-bottom:none;">MM</td>
+    <td width="160" align="center" valign="top" style="border-bottom:none;">YY</td>
+  </tr>
+  <tr>
+    <td align="left" valign="top" style="border-bottom:none;"><select name="select2" class="input_cmbbx_cal1">
+                    <option selected="selected">01</option>
+                    <option>02</option>
+                    <option>03</option>
+                  </select></td>
+    <td align="left" valign="top" style="border-bottom:none;"><select name="select2" class="input_cmbbx_cal1">
+                    <option selected="selected">10</option>
+                    <option>11</option>
+                    <option>12</option>
+                  </select></td>
+    <td align="left" valign="top" style="border-bottom:none;"><select name="select2" class="input_cmbbx_cal2">
+                    <option selected="selected">1985</option>
+                    <option>1986</option>
+                    <option>1987</option>
+                  </select></td>
+  </tr>
+ </table>
+
+                  </td>
+                </tr>-->
+                 
+               <!--  <tr class="row1">
+                  <td valign="top" align="right">&nbsp;</td>
+                  <td valign="top" align="left"><input type="submit" class="submit_btn1" value="Send Stream" /></td>
+                </tr>-->
+              </table></td>
+    <td align="left" valign="top"> <h2 class="quck-txt">More Info</h2>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+              
+             
+                <tr class="row1">
+                  <td valign="top" align="right" class="input_txt">Medical Details :</td>
+                  <td valign="top" align="left" class="input_txt"><textarea class="input_txtbx1" id="inp_id" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');"  style="width: 220px; height: 89px;" name="medical"/><AJDF:output>$smarty.session.part_medical</AJDF:output></textarea></br><font color="Red" size="+1"><AJDF:output>$errmsg.medical</AJDF:output></font></td>
+                </tr>
+
+
+<tr><td><p class="quck-txt">Texting&nbsp;Preference
+</p></td></tr>
+
+
+
+		  <tr class="row1">
+                  <td valign="middle" align="right" class="input_txt">Messaging Frequency
+ :</td>
+                  <td valign="top" align="left" class="input_txt"><select name="frequency" class="input_cmbbx1">
+                   <option value="Daily Twice" selected="selected">Daily Twice</option>
+			<option value="Once a Day">Once a Day</option>
+			<option value="Once in a week">Once in a week</option>
+			<option value="No Preference">No Preference</option>
+                   </select></td>
+                </tr>
+
+<tr><td><p class="quck-txt">Group</p></td></tr>
+
+<tr class="row1"><td colspan="2"><p style=" line-height: 18px; padding: 1px 0pt; text-align: justify">Group is the internal classification for the better understanding of Participant's Demographics.<a href="#" onclick="javascript:CreateGroup()">[Create New Group]</a></p></td></tr>
+
+
+
+    <tr class="row1">
+                  <td valign="top" align="right" class="input_txt">Select Group :</td>
+                  <td valign="top" align="left" class="input_txt"><AJDF:output>$group</AJDF:output></br><font color="Red" size="+1"><AJDF:output>$errmsg.group</AJDF:output></font></td>
+                </tr>
+
+               
+ </table>
+
+                  </td>
+                </tr>
+                 
+                 <tr class="row1">
+                  <td valign="top" align="center">&nbsp;</td>
+                  <td valign="top" align="left"><input type="submit" class="submit_btn2" value="Add Participant" onclick="update.submit()"></td>
+                </tr>
+              </table></td>
+  </tr>
+
+
+
+</table>
+
+              
+
+            </div></form>
+
+<AJDF:output>/if</AJDF:output>
+
+          </div>
+
+
+
+</td>
+
+
+      </tr>
+
+<script language="JavaScript">
+function CreateGroup()
+{
+	document.update.action = 'index.php?do=creategroup&type=1';
+	document.update.submit();
+}
+</script>
+
+       <AJDF:output>include file="footer.html"</AJDF:output>

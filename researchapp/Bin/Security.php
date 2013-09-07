@@ -1,0 +1,59 @@
+<?php
+class Bin_Security
+{
+	
+	public function escapePost()
+	{
+		foreach($_POST as $key=>$item)
+			if(is_array($item))
+			{
+				foreach($item as $k=>$v)
+					$_POST[$key][$k] = mysql_escape_string(stripslashes($v));
+			}
+			else
+				$_POST[$key] = mysql_escape_string(stripslashes($item));
+	}
+	
+	public function escapeGet()
+	{
+		foreach($_GET as $key=>$item)
+			if(is_array($item))
+			{
+				foreach($item as $k=>$v)
+					$_POST[$key][$k] = mysql_escape_string(stripslashes($v));
+			}
+			else
+				$_POST[$key] = mysql_escape_string(stripslashes($item));
+	}
+	
+	public function escapeCookie()
+	{
+		foreach($_GET as $key=>$item)
+			$_COOKIE[$key] = mysql_escape_string(stripslashes($item));	
+	}
+
+	public function escapeSession()
+	{
+		foreach($_SESSION as $key=>$item)
+			$_SESSION[$key] = mysql_escape_string(stripslashes($item));	
+	}
+	
+	public function checkConfigFile()
+	{
+		if(file_exists(ROOT_FOLDER.'Bin/Configuration.php'))
+		{
+			include(ROOT_FOLDER.'Bin/Configuration.php');
+			if(class_exists("Bin_Configuration"))
+				return true;
+			else
+				return false;
+		}
+		else
+			return false;
+	}
+}
+
+if(!Bin_Security::checkConfigFile())
+	die("Configuration file corrupted or missing...")
+
+?>

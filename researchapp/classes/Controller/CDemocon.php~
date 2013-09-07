@@ -1,0 +1,42 @@
+<?php
+error_reporting(E_ALL);
+class Controller_CDemocon
+{
+	
+	/*
+	function firstFunction()
+	{	
+		//echo "fdgh";
+		$output=array();
+		include("classes/Lib/HandleErrors.php");
+		 $output['errmsg'] = $Err->messages;
+		 $output['errval'] = $Err->values;
+		Bin_Template::createTemplate('form1.html',$output);
+		
+
+	}	*/
+
+	function firstFunction()
+	{
+
+// 		include('classes/Model/Validation/CheckInputs.php');
+// 		include('classes/Model/Validation/FormValidation.php');
+// 		new Model_Validation_CheckInputs("first");
+		//echo "no validation"; 
+		//new Model_Validation_CheckInputs("second");
+		//header('location:temp.html');
+
+// 		include('classes/Model/MDemo1.php');
+// 		include('classes/Display/DDemo1.php'); 
+		 /*Model_MDemo1::insertform();
+		Model_MDemo1::displayform();*/			
+		 Bin_Template::createTemplate('form1.html',$output);
+	}
+	
+
+
+}
+
+
+
+?>

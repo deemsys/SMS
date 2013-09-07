@@ -1,0 +1,21 @@
+<?php
+
+class Controller_CLogin
+{
+	
+	function loginPage()
+	{
+// 		include('classes/Model/MDemo.php');
+// 		//include('classes/Display/DDemo.php');	
+// 		
+// 		//$output = array();
+// 		$output['index'] = Model_MDemo::showFirst();
+// 		$output['popularTopics'] = Model_CPolls::showTopics();
+// 		
+// 		Bin_Template::createTemplate('ajindex.html',$output);
+	}
+}
+
+
+
+?>

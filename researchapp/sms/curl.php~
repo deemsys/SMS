@@ -1,0 +1,7 @@
+<?php
+curl -X POST 'https://api.twilio.com/2010-04-01/Accounts/AC012ea71c81bea78b1ace23708f671b36/SMS/Messages.json' \
+ 'From=%2B14155992671' \
+ 'To=%2B14155992671' \
+ 'Body=sdfdsdf' \
+ AC012ea71c81bea78b1ace23708f671b36:{AuthToken}
+?>

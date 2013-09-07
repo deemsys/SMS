@@ -1,0 +1,18 @@
+<?php
+
+class Display_DDemo1
+{
+	
+	
+
+function showFirst()
+	{
+		$output="karthikadevi";	
+		return $output;
+	}
+
+}
+
+
+
+?>

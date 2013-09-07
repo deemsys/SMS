@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app id="AJExample">
+	<appconfig>		   
+	
+        
+        <systemroot>Bin</systemroot>
+		<systemconfig>system-config</systemconfig>
+		
+		
+        <libraryroot>classes</libraryroot>
+        <libraryconfig>library-config</libraryconfig>	
+		
+		<configs for="main">
+			<paramvalue>controller-config</paramvalue> 
+		</configs>		
+		<urldo>do</urldo> 
+		<urlaction>action</urlaction>
+		
+		<escapepost>yes</escapepost>
+		<escapeget>yes</escapeget>
+		
+	</appconfig>    
+</web-app>

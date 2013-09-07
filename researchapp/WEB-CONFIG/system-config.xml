@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<system-config>	
+    <systemroot name="Bin">
+		<system name="Security" id="1"/>
+   		<system name="Smarty" id="2"/>
+		<system name="Template" id="3"/>        
+    	<system name="SetConfiguration" id="4"/>
+	    <system name="DbConnect" id="5"/>
+    	<system name="Query" id="6"/>
+    </systemroot>    	
+
+</system-config>
+

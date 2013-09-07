@@ -1,0 +1,19 @@
+<?php
+/*error_reporting(E_ALL);*/
+class Controller_CMydashboard
+{
+	function Mydashboard()
+	{
+		include_once('classes/Lib/CommonAjaxPaging.php');
+		include('classes/Model/MMydashboard.php');
+		include('classes/Display/DMydashboard.php');
+		if(count($Err->messages) > 0 )
+		{
+			$output['errval'] = $Err->values; 
+			$output['errmsg'] = $Err->messages;
+		}
+		$output['show_adminuser']=Model_MMydashboard::viewParticipants();
+		Bin_Template::CreateTemplate('dashboard.html',$output);
+	}
+}
+?>

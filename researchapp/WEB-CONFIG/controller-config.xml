@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controller-config>
+
+	<globalmapping>
+	
+		<do name="invalidrequest" controller="CLogin" function="loginPage" loadlib="L_ALL" loadsys="S_ALL"/>   
+		     
+	</globalmapping>
+	
+	<domapping>
+	
+		 <do name="login" controller="CLogin" function="loginPage" />
+		 <do name="login" controller="CLogin" function="loginCheck" action="logincheck"/>
+		 <do name="logout" controller="CLogin" function="logOut" />
+		 <do name="changepassword" controller="CLogin" function="changePassword" />
+		 <do name="updatepassword" controller="CLogin" function="updatePassword" />
+		 <do name="forgotpassword" controller="CLogin" function="forgotPassword" />
+		 <do name="validforgetpassword" controller="CLogin" function="validForgetPassword" />
+
+		 
+		 <do name="dashboard" controller="CMydashboard" function="Mydashboard" />
+		 <do name="createstream" controller="CCreatestream" function="Createstream" />
+		 <do name="sendstream" controller="CCreatestream" function="Sendstream" />
+		 <do name="viewstream" controller="CCreatestream" function="Viewstream" />
+		
+		<do name="addadminuser" controller="CAdminuser" function="addAdminuser"/>
+		<do name="insertadminuser" controller="CAdminuser" function="insertAdminuser"/>
+		<do name="viewadminuser" controller="CAdminuser" function="viewAdminuser"/>
+		<do name="viewadminuser" controller="CAdminuser" function="ajaxadminuser" action="search" />
+		<do name="userdetail" controller="CAdminuser" function="userDetail"/>
+		<do name="edituser" controller="CAdminuser" function="editUser"/>
+		<do name="deleteuser" controller="CAdminuser" function="deleteUser"/>
+		<do name="activeuser" controller="CAdminuser" function="activeUser"/>
+		<do name="updateadminuser" controller="CAdminuser" function="updateAdminuser"/>
+		<do name="activityofadmin" controller="CAdminuser" function="activityOfAdmin"/>
+		<do name="activityofadmin" controller="CAdminuser" function="ajaxactivityofadmin" action="search"/>
+			
+		
+		
+		<do name="addmailtemplate" controller="CMailfunction" function="addMailtemplate"></do>
+		<do name="insertmail" controller="CMailfunction" function="insertMailtemplate"></do>
+		
+		
+		
+		<do name="creategroup" controller="CParticipants" function="createGroup"/>
+		<do name="updategroup" controller="CParticipants" function="updateGroup"/>
+		<do name="addparticipants" controller="CParticipants" function="addParticipants"/>
+		<do name="addparticipants" controller="CParticipants" function="insertParticipants" action="insert"/>
+		<do name="viewparticipants" controller="CParticipants" function="viewParticipants"/>
+		<do name="viewparticipants" controller="CParticipants" function="viewAjaxParticipants" action="search"/>
+		<do name="partdicipantdetail" controller="CParticipants" function="partdicipantdetail"/>	
+		<do name="editParticipants" controller="CParticipants" function="editParticipants"/>
+		<do name="updateparticipant" controller="CParticipants" function="modifyParticipants"/>
+		<do name="deleteparticipant" controller="CParticipants" function="deleteParticipants"/>
+		<do name="deletegroup" controller="CParticipants" function="deleteGroup"/>
+		<do name="viewgroup" controller="CParticipants" function="viewGroup"/>
+		<do name="viewgroup" controller="CParticipants" function="viewAjaxGroup" action="search" />
+		<do name="editupdategroup" controller="CParticipants" function="editupdateGroup"/>
+		<do name="editgroup" controller="CParticipants" function="editGroup"/>
+		
+		
+		<do name="broadcast" controller="CBroadcast" function="CreateBroadcost"/>
+		<do name="updatebroadcast" controller="CBroadcast" function="UpdatBroadCast"/>
+		<do name="viewreports" controller="CBroadcast" function="viewReports"/>	
+		<do name="viewreports" controller="CBroadcast" function="viewAjaxReports" action="search"/>
+		
+		
+		<do name="insertstream" controller="CCreatestream" function="insertStream" />
+		<do name="viewstream" controller="CCreatestream" function="ajaxViewstream" action="search" />
+		<do name="editstream" controller="CCreatestream" function="editStream" />		
+		<do name="deletestream" controller="CCreatestream" function="deleteStream" />
+		<do name="updatestream" controller="CCreatestream" function="updatestream" />
+		
+		<do name="selectmailtemp" controller="CMailfunction" function="selectMailtemp" />
+		
+		<do name="showstream" controller="CCreatestream" function="showStream" />
+		<do name="notallow" controller="CLogin" function="notAllow" />
+		
+		<do name="textmsg" controller="CTextmsg" function="txtmsg" />
+		<do name="inserttxtmsg" controller="CTextmsg" function="inserttxtmsg" />
+		
+	</domapping>
+
+</controller-config>

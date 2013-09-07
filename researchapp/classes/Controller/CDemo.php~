@@ -1,0 +1,35 @@
+<?php
+
+class Controller_CDemo1
+{
+	
+	function firstFun()
+	{
+		include('classes/Model/MDemo1.php');
+		$output['index'] = Model_MDemo::showIndex();
+		//$output['popularTopics'] = Model_CPolls::showTopics();
+		
+		Bin_Template::createTemplate('ajindex.html',$output);
+	}
+	
+	function controlFirst()
+	{
+		include('classes/Model/MDemo.php');
+		include('classes/Display/DDemo.php');	
+		
+		$output = array();
+		$output['index'] = Model_MDemo::showFirst();
+		//$output['popularTopics'] = Model_CPolls::showTopics();
+		
+		Bin_Template::createTemplate('ajindex.html',$output);
+	}
+	
+	function controlSecond()
+	{
+		Bin_Template::createTemplate('demosecond.html');
+	}
+}
+
+
+
+?>

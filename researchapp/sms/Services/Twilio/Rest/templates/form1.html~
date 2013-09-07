@@ -1,0 +1,45 @@
+<html>
+<body>
+<form name="frm" method="POST" action="?do=val">
+UserName::
+<input type="text" name="usname"  value="<AJDF:output>$errval.txt</AJDF:output>" />
+<br/>
+<AJDF:output>$errmsg.txt</AJDF:output>
+<br>
+Age::
+<input type="text" name="txt"  value="<AJDF:output>$errval.txt</AJDF:output>" />
+<br/>
+<AJDF:output>$errmsg.txt</AJDF:output>
+<br>
+Expre::
+<input type="text" name="txt1" value="<AJDF:output>$errval.txt1</AJDF:output>">
+<br>
+<AJDF:output>$errmsg.txt1</AJDF:output>
+<br>
+Email::
+<input type="text" name="txt2" value="<AJDF:output>$errval.txt2</AJDF:output>">
+<br>
+<AJDF:output>$errmsg.txt2</AJDF:output>
+Password::
+<input type="password" name="pwd" value="<AJDF:output>$errval.txt2</AJDF:output>">
+<br>
+<AJDF:output>$errmsg.pwd</AJDF:output>
+Conpassword::
+<input type="password" name="pwd" value="<AJDF:output>$errval.txt2</AJDF:output>">
+<br>
+<AJDF:output>$errmsg.pwd</AJDF:output>
+<select name="sel" id="kar">
+<option>Add</option>
+<option>Sub</option>
+<option>Mul</option>
+<option>Div</option>
+</select>
+<input type="submit" name="submit" value="submit"></form>
+</body>
+</html>
+
+
+
+
+
+

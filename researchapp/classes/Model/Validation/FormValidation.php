@@ -1,0 +1,178 @@
+<?php
+
+class Model_Validation_FormValidation extends Lib_Validation_Handler 
+{
+	var $nullmessage;
+	var $urlmessage;
+	var $emailmessage;
+	var $spcharmessage;
+	var $imagemessage;	
+	var $numbermessage;
+	var $limitmessage;
+	
+	function Model_Validation_FormValidation($form)
+	{
+		$this->nullmessage = "Mandatory, cannot be Blank!";
+		$this->urlmessage = "Invalid URL!";
+		$this->emailmessage = "Invalid Email ID!";
+		$this->formatmessage = "Invalid Format!";
+		$this->spcharmessage = "No Special Characters.";
+		$this->imagemessage = "Invalid Image";
+		$this->numbermessage = "Only Numbers allowed";
+		$this->limitmessage = "Exceeds the limit ";
+		$this->charmessage = "No Numbers Allowed";
+		$this->txtonlymessage = "Character Only Allowed";
+		($form == 'first')?$this->validateFirst():'';
+		//($form=='second')?$this->validateNumber():'';
+		
+	}
+
+	function isValidEmail($email)
+	{
+		if(!preg_match("/^[_\.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+\.)+[a-zA-Z]{2,6}$/i", $email))
+			return false;
+		else
+			return true;
+	}
+
+	function isValidURL($url)
+	{
+		$urlstart = substr($url,0,3);
+		$url = ($urlstart == 'www')?'http://'.$url:$url;
+		return preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url);
+	}
+
+	
+	function checkInvalid($table_name,$field,$value)
+	{
+		$sql = "SELECT COUNT(*) AS AVAILNUM FROM ".$table_name." WHERE ".$field." = '".$value."'";
+		$query = new Bin_Query();
+		$query->executeQuery($sql);
+		
+		if(!$query->records[0]['AVAILNUM'])
+			return true;
+		else
+			return false;
+	}
+	
+	
+	function checkExistsInvalid($table_name,$field,$value,$check_field,$check_value)
+	{
+		$sql = "SELECT COUNT(*) AS AVAILNUM FROM ".$table_name." WHERE ".$field." = '".$value."' AND ".$check_field." != '".$check_value."'";
+		$query = new Bin_Query();
+		$query->executeQuery($sql);
+		
+		if($query->records[0]['AVAILNUM'])
+			return true;
+		else
+			return false;
+	}
+	
+	
+	function checkBadwordFilter($field,$label)
+	{
+		//get badword filter array
+		$badword = array();
+		$sql = "SELECT badword FROM badwords WHERE status = '1' ORDER BY badword ASC";
+		$query = new Bin_Query();
+		if($query->executeQuery($sql))
+		{
+			$recordSet = $query->records;
+			$recordSize = $query->totrows;
+			
+			for($i=0;$i<$recordSize;$i++)
+				$badword[] = stripslashes($recordSet[$i]['badword']);
+		}
+		
+		if(trim($_POST[$field]) != '')
+		{
+			$desc_badword_array = array();
+			if(trim($_POST[$field]) != '')
+			{
+				$desc_exp = array();
+				$desc_exp = explode(" ",trim($_POST[$field]));
+				
+				foreach($desc_exp as $key=>$item)
+				{
+					if(in_array($item,$badword))
+						$desc_badword_array[] = $item;
+				}
+			}
+			
+			if(count($desc_badword_array))
+				$this->Assign($field,"","noempty",$label." - Contains the following badwords (".implode(",",$desc_badword_array).")");
+		}
+	}
+	
+	function  validateFirst()
+	{
+		
+		$this->Assign("usname",trim($_POST['usname']),"noempty","".$this->nullmessage);
+		$this->Assign("txt",trim($_POST['txt']),"noempty","".$this->nullmessage);
+		$this->Assign("txt1",trim($_POST['txt1']),"noempty","".$this->nullmessage);
+		$this->Assign("txt2",trim($_POST['txt2']),"noempty","".$this->nullmessage);
+		$this->Assign("pwd",trim($_POST['pwd']),"noempty","".$this->nullmessage);
+		$this->Assign("cpwd",trim($_POST['cpwd']),"noempty","".$this->nullmessage);
+			if(trim($_POST['txt'])!=="")
+				{
+
+				
+					if(!is_numeric(trim($_POST['txt'])))
+					$this->Assign("txt","","noempty","Pls Enter Number Only");
+				}
+			
+				if(trim($_POST['txt2']) != '')
+				{
+                     if(!$this->isValidEmail(trim($_POST['txt2'])))
+			{
+			      $this->Assign("txt2","","noempty",$this->emailmessage);
+			}
+				}
+/*			$txt = trim($_POST['txt']);*/
+		$this->PerformValidation("?do=temp");
+			}
+// 		 if(trim($_POST['txt1']) =='')
+// 		{
+// 			$this->Assign("txt1",trim($_POST['txt1']),"noempty","Enter pls");
+// 		
+// /*			$txt = trim($_POST['txt']);*/
+// 		
+// 		}
+		
+// 		if(!is_numeric($_POST['txt']))
+// 		{
+// 			$this->Assign("txt",trim($_POST['txt1']),"noempty","Please Enter Num Only");
+// 		}
+// 		if(!is_numeric($_POST['txt1']))
+// 		{
+// 			$this->Assign("txt1",trim($_POST['txt1']),"noempty","Please  second Enter Num Only");
+// 		}
+		
+		
+
+		
+
+
+// function validateNumber()
+// 	{
+// // 		$flag = 0;
+// // 		$str_array = str_split($str,1);
+// // 		foreach($str_array as $value)
+// // 		{	
+// 			if(!is_numeric($_POST['txt']))
+// 			{
+// 				//$flag++;
+// 				$this->Assign("txt",trim($_POST['txt']),"noempty","Pls enter the number");
+// 				
+// 			}
+// 
+// 
+// 			if()
+// 			$this->PerformValidation("?do=temp");
+// 		}
+
+}		
+?>	
+	
+	
+

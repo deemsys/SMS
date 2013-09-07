@@ -1,0 +1,46 @@
+<html>
+<body>
+<!--<form action="validation.php" method="post"><center>-->
+<table border="0" cellpadding="0" cellspacing="10">
+
+<tr>
+<TD>Fname</TD>
+<TD> ::</TD>
+<TD> <input type="text" name="fname"  >
+</TD>
+</tr><br>
+<tr>
+<TD>Fathername</TD>
+<TD> ::</TD>
+<TD> <input type="text" name="fathername"  >
+</TD>
+</tr><br>
+<tr>
+<TD>Age</TD>
+<TD> ::</TD>
+<TD> <input type="text" name="fathername"  >
+</TD>
+</tr><br>
+<tr>
+<TD>Password</TD>
+<TD> ::</TD>
+<TD> <input type="text" name="fname"  >
+</TD>
+</tr><br>
+<tr>
+<tr>
+<TD>Confrimpassword</TD>
+<TD> ::</TD>
+<TD> <input type="text" name="fname"  >
+</TD>
+</tr><br>
+<tr>
+
+</table>
+<br><br><br><br><br>
+<input type="submit" name="submit" value="submit" />
+
+</center>
+</form>
+</body>
+</html>

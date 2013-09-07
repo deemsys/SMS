@@ -1,0 +1,231 @@
+<?php
+/*error_reporting(E_ALL);*/
+class Controller_CParticipants
+{
+
+		function Controller_CParticipants()
+		{
+			if(!isset($_SESSION['admin']['id']) && !isset($_SESSION['admin']['id']))
+			header("Location:?do=login");
+		}
+		function addParticipants()
+		{
+			if($_SESSION['prive'][4]=='')
+			{
+				header('Location:?do=notallow'); exit;
+			}
+			include('classes/Lib/HandleErrors.php');
+	
+			include('classes/Model/MParticipants.php');
+			include('classes/Display/DParticipants.php');
+			if(count($Err->messages) > 0 )
+			{
+				$output['errval'] = $Err->values; 
+				$output['errmsg'] = $Err->messages; 
+			}
+			$output['age']=Model_MParticipants::ageFun($output['errval']);
+			$output['group']=Model_MParticipants::listGroup($output['errval']);	
+			Bin_Template::CreateTemplate('add-participants.html',$output);
+			
+			unset($_SESSION['adduser']);
+			unset($_SESSION['part_fname']);
+			unset($_SESSION['part_lname']);
+			unset($_SESSION['part_mobile']);
+			unset($_SESSION['part_email']);
+			unset($_SESSION['part_gender']);
+			unset($_SESSION['part_age']);
+			unset($_SESSION['part_city']);
+			unset($_SESSION['part_education']);
+			unset($_SESSION['part_note']);
+			unset($_SESSION['part_medical']);
+			unset($_SESSION['part_frequency']);
+	
+		}
+		function insertParticipants()
+		{
+			include('classes/Model/MParticipants.php');
+			include('classes/Lib/ValidateInputs.php');
+			new Lib_ValidateInputs('insertparticipants');
+			Model_MParticipants::insertParticipants();
+		}
+		function editParticipants()
+		{
+			if($_SESSION['prive'][5]=='')
+			{
+				header('Location:?do=notallow'); exit;
+			}
+			include('classes/Lib/HandleErrors.php');
+			include('classes/Model/MParticipants.php');
+			include('classes/Display/DParticipants.php');
+			if(count($Err->messages) > 0 )
+			{
+				$output['errval'] = $Err->values; 
+				$output['errmsg'] = $Err->messages;
+			}
+			$output['age']=Model_MParticipants::ageFun1($Err);
+			$output['group']=Model_MParticipants::listGroup1($output['errmsg']);
+			$output['participant']=Model_MParticipants::viewParticipantDetails();
+			Bin_Template::CreateTemplate('edit_participants.html',$output);
+		
+		}
+		function updateParticipants()
+		{
+			include('classes/Model/MParticipants.php');
+			include('classes/Lib/ValidateInputs.php');
+			new Lib_ValidateInputs('insertparticipants');
+			Model_MParticipants::insertParticipants();
+		}
+
+		function createGroup()
+		{
+	
+			if($_GET['type']== '1')
+			{
+	// 			print_r($_POST); exit;
+			$_SESSION['part_fname']=$_POST['fname'];
+			$_SESSION['part_lname']=$_POST['lname'];
+			$_SESSION['part_mobile']=$_POST['mobile'];
+			$_SESSION['part_email']=$_POST['email'];
+			$_SESSION['part_gender']=$_POST['gender']; 
+			$_SESSION['part_age']=$_POST['up_age'];  
+			$_SESSION['part_city']=$_POST['city'];
+			$_SESSION['part_education']=$_POST['education'];
+			$_SESSION['part_note']=$_POST['note'];
+			$_SESSION['part_medical']=$_POST['medical'];
+			$_SESSION['part_frequency']=$_POST['frequency'];
+			
+			}
+			include('classes/Model/MParticipants.php');
+			include('classes/Display/DParticipants.php');
+			$output['age']=Model_MParticipants::ageFun($output['errval']);
+			$output['group']=Model_MParticipants::listGroup($output['errval']);
+			include('classes/Lib/HandleErrors.php');
+		
+				if(count($Err->messages) > 0 )
+				{
+					$output['errval'] = $Err->values; 
+					$output['errmsg'] = $Err->messages;
+				}
+				Bin_Template::CreateTemplate('creategroup.html',$output);
+			
+			unset($_SESSION['adduser']);
+			
+		}
+
+		function updateGroup()
+		{
+			include('classes/Model/MParticipants.php');
+			include('classes/Lib/ValidateInputs.php');
+			new Lib_ValidateInputs('updategroup');
+			Model_MParticipants::updateGroup();
+		}
+		function viewParticipants()
+		{
+			include_once('classes/Lib/CommonAjaxPaging.php');
+			include('classes/Model/MParticipants.php');
+			include('classes/Display/DParticipants.php');
+			$output['show_adminuser']=Model_MParticipants::viewParticipants();
+			$output['group']=Model_MParticipants::listGroup2();
+	
+			Bin_Template::createTemplate('view_partcipants.html',$output);
+			unset($_SESSION['adduser_new']);
+			unset($_SESSION['deletepart']);
+			unset($_SESSION['upuser_new']);
+	
+		}
+
+		function viewAjaxParticipants()
+		{
+			include_once('classes/Lib/CommonAjaxPaging.php');
+			include('classes/Model/MParticipants.php');
+			include('classes/Display/DParticipants.php');
+			$output['show_adminuser']=Model_MParticipants::viewParticipants();
+			Bin_Template::createTemplate('ajaxuser.html',$output);	
+	//		echo "By Kumar" exit;
+		}
+
+		function partdicipantdetail()
+		{
+			include('classes/Model/MParticipants.php');
+			include('classes/Display/DParticipants.php');
+			$output['participant_details']=Model_MParticipants::partdicipantdetail();
+			Bin_Template::CreateTemplate('participant_details.html',$output);
+		}
+
+		function modifyParticipants()
+		{
+			include('classes/Model/MParticipants.php');
+			include('classes/Lib/ValidateInputs.php');
+			new Lib_ValidateInputs('updateparticipants');
+			Model_MParticipants::modifyParticipants();
+		}
+		
+		function deleteParticipants()
+		{
+			if($_SESSION['prive'][6]=='')
+			{
+			header('Location:?do=notallow'); exit;
+			}
+			include('classes/Model/MParticipants.php');
+			$obj=new Model_MParticipants();		
+			$obj->deleteParticipants();
+		}	
+		
+		function editGroup()
+		{
+			include('classes/Model/MParticipants.php');
+			include('classes/Display/DParticipants.php');			
+			include('classes/Lib/HandleErrors.php');
+			if(count($Err->messages) > 0 )
+			{
+				$output['errval'] = $Err->values; 
+				$output['errmsg'] = $Err->messages;
+			}
+			$output['editgroup']=Model_MParticipants::editGroup();
+			$output['age']=Model_MParticipants::ageFun1($output['errval'],$output['editgroup']);
+			$output['group']=Model_MParticipants::listGroup1($output['errval'],$output['editgroup']);
+			Bin_Template::CreateTemplate('editgroup.html',$output);			
+			unset($_SESSION['adduser']);
+		}
+		
+		function editupdateGroup()
+		{
+			include('classes/Model/MParticipants.php'); 
+			include('classes/Lib/ValidateInputs.php');
+			new Lib_ValidateInputs('editupdategroup');
+			Model_MParticipants::editupdateGroup();
+		}
+	
+		function deleteGroup()
+		{
+			include_once('classes/Model/MParticipants.php');
+			Model_MParticipants::deleteGroup();
+// 			echo "By Kumar"; exit;
+		}
+		
+		
+		
+		function viewGroup()
+		{
+			include_once('classes/Lib/CommonAjaxPaging.php');
+			include('classes/Model/MParticipants.php');
+			include('classes/Display/DParticipants.php');
+			$output['show_adminuser']=Model_MParticipants::viewGroup();
+			Bin_Template::createTemplate('view_group.html',$output);
+		}
+		
+		function viewAjaxGroup()
+		{
+			include_once('classes/Lib/CommonAjaxPaging.php');
+			include('classes/Model/MParticipants.php');
+			include('classes/Display/DParticipants.php');
+			$output['show_adminuser']=Model_MParticipants::viewGroup();
+			Bin_Template::createTemplate('ajaxuser.html',$output);	
+	//		echo "By Kumar" exit;
+		}
+		
+
+	
+
+}
+?>

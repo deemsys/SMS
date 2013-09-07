@@ -1,0 +1,670 @@
+<?php 
+/***************************************************************************
+
+ * Product Name				: AJ MATRIX DNA
+
+ * Version 				: V 3.1
+
+ * Release Date				: Saturday, October 31, 2009
+
+ * Copyright				: (C) 2009 AJ Square Inc
+
+ * Email				: info@ajsquare.com
+
+ * Company URL				: www.ajsquare.com
+
+ ***************************************************************************/
+
+/****************************************************************************
+* Licence Agreement: 
+
+ *     This program is a Commercial licensed software. You are not authorized to redistribute it and/or modify/and or sell it under any publication either user and enterprise versions of the License (or) any later version is applicable for the same. If you have received this software without a license, you must not use it, and you must destroy your copy of it immediately. If anybody illegally uses this software, please contact info@ajsquare.com.
+
+*****************************************************************************/
+?>
+
+<?php
+class Lib_FormValidation extends Lib_Validation_Handler 
+{
+	function Lib_FormValidation($form)
+	{
+		if($form=='logincheck')
+			$this->validateLogincheck();
+		elseif($form=='verify')
+			$this->validateverify();
+		elseif($form=='addAdminuser')
+			$this->addAdminuser();
+		elseif($form=='updateAdminuser')
+			$this->updateAdminuser();
+		elseif($form=='changepassword')
+			$this->validateChangepassword();
+		elseif($form=='addmailtemp')
+			$this->addmailtemp();
+		elseif($form=='checkemail')
+			$this->checkemail();
+		elseif($form=='updategroup')
+			$this->updategroup();
+		elseif($form=='insertparticipants')
+			$this->insertparticipants();
+		elseif($form=='updateparticipants')
+			$this->updateparticipants();
+		elseif($form=='updatbroadcast')
+			$this->updatbroadcast();
+		elseif($form=='insertstream')
+			$this->insertstream();
+		elseif($form=='updatestream')
+			$this->updatestream();
+		elseif($form=='editupdategroup')
+			$this->editupdategroup();
+		elseif($form=='inserttxtmsg')
+			$this->inserttxtmsg();
+	}
+
+	
+	function isValidEmail($email)
+	{
+	  if(!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$", $email))
+	  {
+		  return FALSE;
+	  }
+	   
+	  $at_position = strrpos($email,'@')+1;
+	  $after_at = substr($email,$at_position);
+	  $tot_extenstions = substr_count($after_at,'.');
+	  
+	  if($tot_extenstions>2)
+	  {
+	    return FALSE;
+	  }
+	  else if($tot_extenstions==2)
+	  {
+		$tot_len = strlen($after_at);
+		$dot1_position = strpos($after_at,'.'); 
+		$dot2_position = strrpos($after_at,'.');
+		  
+		if(($dot2_position - $dot1_position)>5)
+		return FALSE;
+		  
+		if(($tot_len - $dot2_position)>3)
+		return FALSE;
+	  }
+	  else
+	  {
+		$tot_len = strlen($after_at);
+		$dot1_position = strpos($after_at,'.'); 
+		if(($tot_len - $dot1_position)>5)
+		return FALSE;
+	  }
+	   
+	  return TRUE;
+	}
+	
+	function inserttxtmsg()
+	{
+		$message = "Required Field Cannot Be Blank";
+		$this->Assign("asid",$_POST['asid'],"noempty",$message);
+		$this->Assign("token",$_POST['token'],"noempty",$message);
+		$this->Assign("mnumber",$_POST['mnumber'],"noempty",$message);
+		$this->PerformValidation("?do=textmsg");
+	}
+	function updatbroadcast()
+	{
+	print_r($_POST); exit;
+
+		if($_POST['stream'] == '')
+		{
+		$message = "Required Field Cannot Be Blank";
+		$this->Assign("stream",$_POST['stream'],"noempty",$message);
+		}
+		if($_POST['group'] == '')
+		{
+		$message = "Required Field Cannot Be Blank";
+		$this->Assign("group",$_POST['group'],"noempty",$message);
+		}
+		if($_POST['st_date'] == '')
+		{
+		$message = "Required Field Cannot Be Blank";
+		$this->Assign("st_date",$_POST['st_date'],"noempty",$message);
+		}
+		else
+		{
+			$to = date("Y-m-d", strtotime($_POST['st_date']));	
+			$to_day= date("Y-m-d");
+
+				$sql_new="SELECT DATEDIFF('".$to_day."','".$to."') AS DiffDate";
+				$obj_new=new Bin_Query();		
+			
+				$obj_new->executeQuery($sql_new);
+				  $date_diff_new=$obj_new->records[0]['DiffDate'];  
+			 	
+				if($date_diff_new > '0')
+				{
+	
+				$this->Assign("st_date","","noempty"," Enter the Valid Date");
+				}
+
+		}
+		if($_POST['fre'] == '1')
+		{
+			if($_POST['ftime_two'] == $_POST['stime_two'])
+			{
+			
+				$this->Assign("ftime_two","","noempty"," First time and Second time Should not be Same.");
+
+			}
+
+		}		
+
+
+		
+
+
+				$this->PerformValidation("?do=broadcast");			
+		
+
+	}
+
+	function insertstream()
+	{
+		$message = "Required Field Cannot Be Blank";
+		$this->Assign("sname",$_POST['sname'],"noempty",$message);
+		$this->Assign("sdes",$_POST['sdes'],"noempty",$message);
+		
+		for($i=0;$i<count($_REQUEST['message']);$i++)
+		{
+			if(!empty($_REQUEST['message'][$i]))
+			{
+				if(strlen($_REQUEST['message'][$i])>160)
+				{
+				$message2 = "Please enter message upto 160 character";
+				$this->Assign("message","","noempty",$message2);
+				}
+			}
+		}
+
+		for($i=0;$i<count($_POST['message']);$i++)
+		{
+					$this->Assign("message".$i."",$_POST['message'][$i],"noempty",$message);
+
+
+		}
+
+
+/*		echo $i; exit;*/
+		$this->PerformValidation("?do=createstream");
+	}
+	
+	
+	function updatestream()
+	{
+		$message = "Required Field Cannot Be Blank";
+		$this->Assign("sname",$_POST['sname'],"noempty",$message);
+		$this->Assign("sdes",$_POST['sdes'],"noempty",$message);
+		for($i=0;$i<count($_POST['message']);$i++)
+		{
+					$this->Assign("message".$i."",$_POST['message'][$i],"noempty",$message);
+
+
+		}
+		for($i=0;$i<count($_REQUEST['message']);$i++)
+		{
+			if(!empty($_REQUEST['message'][$i]))
+			{
+				if(strlen($_REQUEST['message'][$i])>160)
+				{
+				$message2 = "Please enter message upto 160 character";
+				$this->Assign("message","","noempty",$message2);
+				}
+			}
+		}
+/*		echo $i; exit;*/
+		$this->PerformValidation("?do=editstream&streamid=".$_GET['streamid']."");
+	}
+
+	function validateLogincheck()
+	{
+		
+	
+		$message = "Required Field Cannot Be Blank";
+		$this->Assign("username",$_POST['username'],"noempty",$message);
+		$this->Assign("pwd",$_POST['pwd'],"noempty",$message);
+
+		$this->PerformValidation("?do=login");			
+
+	}
+	
+	function addAdminuser()
+	{	
+		$message = "Required Field Cannot Be Blank";
+		$this->Assign("name",$_POST['name'],"noempty",$message); 
+
+		$this->Assign("password",$_POST['password'],"noempty",$message);
+		$this->Assign("repassword",$_POST['repassword'],"noempty",$message);
+		if(trim($_POST['password'])!='')
+		{
+			if(strlen($_POST['password'])<5 || strlen($_POST['password'])>32)
+			{ 
+			$message4="Please enter password from 5 to 32 character";
+			$this->Assign("password","","noempty",$message4);
+		
+			}
+		}
+		
+		
+		if(trim($_POST['password'])!=trim($_POST['repassword']))
+		{
+			$this->Assign("repassword",'',"noempty","Please enter correct password");
+		}
+		if(trim($_POST['mobile'])=='')
+		{
+		$this->Assign("mobile",'',"noempty",$message);
+		}
+
+		else if(!(ctype_digit($_POST['mobile'])!=''))
+		{	
+			$this->Assign("mobile",'',"noempty","Enter only numbers");	
+		}
+		else if(strlen($_POST['mobile'])>10)
+		{ 
+			$message4="Please enter phone no upto 10 character";
+			$this->Assign("mobile","","noempty",$message4);
+		
+		}
+		
+		$email = trim($_POST['email']);
+
+		$this->Assign("email",$email,"noempty","Please enter Email id ");
+
+		 
+
+		if(!empty($_POST['email']) && !$this->isValidEmail(trim($_POST["email"])))
+		{
+			$this->Assign("email","","noempty","Invalid Email id");
+		}
+		if(trim($_POST['email'])!='')
+		{
+			$obj = new Bin_Query();
+			$sql = "SELECT admin_email FROM admin_log_table WHERE admin_email='".$_POST['email']."'";
+			if($obj->executeQuery($sql))
+			{
+				if($obj->totrows >=1)
+				{
+					$this->Assign("email",'',"noempty","Email Id already exists");
+				}
+			}
+		}
+		
+		if(trim($_POST['address'])=='')
+		{
+		$this->Assign("address",'',"noempty",$message);
+		}
+			
+		if(trim($_POST['address'])!='')
+		{
+		if(strlen($_POST['address'])>=100 )
+			{
+				$message3="Please enter address within 100 characters";
+				$this->Assign("address","","noempty",$message3);
+			}
+		
+		}
+		
+			
+		$this->PerformValidation("?do=addadminuser");
+	}
+	function updateAdminuser()
+	{	
+		$message = "Required Field Cannot Be Blank";
+		$this->Assign("name",$_POST['name'],"noempty",$message); 
+
+		if(trim($_POST['mobile'])=='')
+		{
+		$this->Assign("mobile",'',"noempty",$message);
+		}
+
+		else if(!(ctype_digit($_POST['mobile'])!=''))
+		{	
+			$this->Assign("mobile",'',"noempty","Enter only numbers");	
+		}
+		else if(strlen($_POST['mobile'])>10)
+		{ 
+			$message4="Please enter phone no upto 10 character";
+			$this->Assign("mobile","","noempty",$message4);
+		
+		}
+		
+		$email = trim($_POST['email']);
+
+		$this->Assign("email",$email,"noempty","Please enter Email id ");
+
+		 
+
+		if(!empty($_POST['email']) && !$this->isValidEmail(trim($_POST["email"])))
+		{
+			$this->Assign("email","","noempty","Invalid Email id");
+		}
+		
+		if(trim($_POST['address'])=='')
+		{
+		$this->Assign("address",'',"noempty",$message);
+		}
+			
+		if(trim($_POST['address'])!='')
+		{
+		if(strlen($_POST['address'])>=100 )
+			{
+				$message3="Please enter address within 100 characters";
+				$this->Assign("address","","noempty",$message3);
+			
+			}
+		
+		}
+		
+			
+		$this->PerformValidation("?do=edituser&userid=".$_GET['userid']."");
+	}
+	
+	function validateChangepassword()
+	{	
+			$message = "Required Field Cannot Be Blank";
+			if($_POST['oldpassword']!='')
+			{
+				$id=$_SESSION['admin']['id'];
+				$query=new Bin_Query();
+				 $sql="SELECT admin_password FROM admin_log_table WHERE admin_password='".md5(md5(trim($_POST['oldpassword'])))."' AND admin_id='".$id."' ";
+					$query->executeQuery($sql);
+
+					if(count($query->records)==0)
+					{
+						$this->Assign("oldpassword",'',"noempty","Incorrect old password");
+					}
+					else
+					{
+						if($_POST['oldpassword']==$_POST['newpassword'])
+						{
+							$this->Assign("newpassword",'',"noempty","Enter new password");
+						}
+					}
+
+			}
+			if($_POST['oldpassword']=='')
+			{
+			$this->Assign("oldpassword",'',"noempty",$message);
+			}
+			if($_POST['newpassword']=='')
+			{
+			$this->Assign("newpassword",'',"noempty",$message);
+			}
+			if($_POST['cpassword']=='')
+			{
+			$this->Assign("cpassword",'',"noempty",$message);
+			}
+			if(trim($_POST['newpassword'])!='')
+				{
+				
+						if(strlen($_POST['newpassword'])<5 || strlen($_POST['newpassword'])>32)
+						{ 
+						$message4="Please enter password from 5 to 32 character";
+						$this->Assign("newpassword","","noempty",$message4);
+					
+						}
+					}
+
+				
+		
+				if(trim($_POST['newpassword'])!==trim($_POST['cpassword']))
+					{
+					$this->Assign("cpassword",'',"noempty","Please enter correct password");
+					}
+				$this->PerformValidation("?do=changepassword");
+
+	}
+	function addmailtemp()
+	{
+		$message = "Required Field Cannot Be Blank";
+		$this->Assign("select",$_POST['select'],"noempty",$message);
+		$this->Assign("subject",$_POST['subject'],"noempty",$message);
+		$this->Assign("fname",$_POST['fname'],"noempty",$message);
+		
+		$fmail = trim($_POST['fmail']);
+		$this->Assign("fmail",$fmail,"noempty","Please enter Email id ");
+		if(!empty($_POST['fmail']) && !$this->isValidEmail(trim($_POST["fmail"])))
+		{
+			$this->Assign("fmail","","noempty","Invalid Email id");
+		}
+	
+		$rmail = trim($_POST['rmail']);
+		$this->Assign("rmail",$rmail,"noempty","Please enter Email id ");
+		if(!empty($_POST['rmail']) && !$this->isValidEmail(trim($_POST["rmail"])))
+		{
+			$this->Assign("rmail","","noempty","Invalid Email id");
+		}
+
+		$this->Assign("smtp",$_POST['smtp'],"noempty",$message);
+		$this->Assign("port",$_POST['port'],"noempty",$message);
+		$this->Assign("uname",$_POST['uname'],"noempty",$message);
+		$this->Assign("password",$_POST['password'],"noempty",$message);
+		$this->Assign("message",$_POST['message'],"noempty",$message);
+
+		$this->PerformValidation("?do=addmailtemplate&id=".$_GET['id']."");
+	}
+	
+	
+	function checkemail()
+	{		
+		$email = trim($_POST['email']);
+		$this->Assign("email",$email,"noempty","Please enter Email id ");
+		if(!empty($_POST['email']) && !$this->isValidEmail(trim($_POST["email"])))
+		$this->Assign("email","","noempty","Invalid Email id");	
+		if(!empty($email) && $this->isValidEmail(trim($_POST["email"])))
+		{
+			$query=new Bin_Query();
+			$sql = "SELECT * FROM admin_log_table WHERE admin_email = '".$email."'";
+			$query->executeQuery($sql);
+			if(count($query->records)==0)
+			{
+			$this->Assign("email",'',"noempty","Invaild Email id");
+			}
+		}
+		 $this->PerformValidation("?do=forgotpassword");		
+
+	}
+	
+
+	function updategroup()
+	{
+		$message = "Required Field Cannot Be Blank";
+
+		$this->Assign("name",$_POST['name'],"noempty",$message);
+
+		$this->Assign("description",$_POST['description'],"noempty",$message);
+		if($_POST['scope']=='1')
+		{
+			if(count($_REQUEST['group']) == '0')
+			{
+			$this->Assign("group",'',"noempty","Please Select Atleast One Group");
+			}
+			$this->Assign("gcity",$_POST['gcity'],"noempty",$message);
+			$this->Assign("dojfrom",$_POST['dojfrom'],"noempty",$message);
+			$this->Assign("dojto",$_POST['dojto'],"noempty",$message);
+			$this->Assign("edu",$_POST['edu'],"noempty",$message);
+ 	
+			if($_POST['dojto']!='')
+			{
+				if($_POST['dojfrom'] > $_POST['dojto'])
+				{
+					$this->Assign("dojto","","noempty","Enter a valid date");
+				}
+			}
+			
+		}
+		$this->PerformValidation("?do=creategroup&type=".$_GET['type']);		
+
+
+
+	}
+	
+	function editupdategroup()
+	{
+		$message = "Required Field Cannot Be Blank";
+
+		$this->Assign("name",$_POST['name'],"noempty",$message);
+
+		$this->Assign("description",$_POST['description'],"noempty",$message);
+		if($_POST['scope']=='1')
+		{
+			if(count($_REQUEST['up_group']) == '0')
+			{
+			$this->Assign("up_group",'',"noempty","Please Select Atleast One Group");
+			}
+			$this->Assign("gcity",$_POST['gcity'],"noempty",$message);
+			$this->Assign("dojfrom",$_POST['dojfrom'],"noempty",$message);
+			$this->Assign("dojto",$_POST['dojto'],"noempty",$message);
+			$this->Assign("edu",$_POST['edu'],"noempty",$message);
+
+			if($_POST['dojfrom']!='')
+			{
+				if(date('Y/m/d') > $_POST['dojfrom'])
+				{
+					$this->Assign("dojfrom","","noempty","Enter a valid date");
+				}
+			}
+	
+			if($_POST['dojto']!='')
+			{
+				if(date('Y/m/d') > $_POST['dojto'])
+				{
+					$this->Assign("dojto","","noempty","Enter a valid date");
+				}
+			}
+			
+			if(($POST['dojfrom']!='') && ($_POST['dojto']!=''))
+			{
+				if(($POST['dojfrom']!='') < ($_POST['dojto']!=''))
+				{
+					$this->Assign("dojto","","noempty","Enter a valid date");
+				}
+			}
+		}
+		$this->PerformValidation("?do=editgroup&id=".$_GET['id']);		
+
+
+
+	}
+
+
+	function updateparticipants()	
+	{
+		$message4="Please Provide Numeric values";
+		$message = "Required Field Cannot Be Blank";
+		$this->Assign("up_fname",$_POST['up_fname'],"noempty",$message);
+		$this->Assign("up_fname",$_POST['up_fname'],"noempty",$message);
+		$this->Assign("up_lname",$_POST['up_lname'],"noempty",$message);
+		
+		if(trim($_POST['up_mobile'])=='')
+		{
+		$this->Assign("up_mobile",'',"noempty",$message);
+		}
+
+		else if(!(ctype_digit($_POST['up_mobile'])!=''))
+		{	
+			$this->Assign("up_mobile",'',"noempty","Enter only numbers");	
+		}
+		else if(strlen($_POST['up_mobile'])>10)
+		{ 
+			$message4="Please enter phone no upto 10 character";
+			$this->Assign("up_mobile","","noempty",$message4);
+		
+		}
+		
+
+
+
+		$this->Assign("up_city",$_POST['up_city'],"noempty",$message);
+
+		$this->Assign("up_email",$_POST['up_email'],"noempty",$message);
+
+		if(!empty($_POST['up_email']) && !$this->isValidEmail(trim($_POST["up_email"])))
+
+
+
+			$this->Assign("up_email","","noempty","Invalid Email id");
+
+		
+
+		$this->Assign("up_note",$_POST['up_note'],"noempty",$message);
+
+		$this->Assign("up_medical",$_POST['up_medical'],"noempty",$message);
+
+		if(count($_REQUEST['up_group']) == '0')
+
+		{
+
+		$this->Assign("up_group",'',"noempty","Please Select Atleast One Group");
+
+
+
+		}
+
+// 
+
+		$this->PerformValidation("?do=editParticipants&id=".$_GET['part_id']);	
+
+	}
+
+
+
+	function insertparticipants()	
+
+	{
+
+
+/*		print_r($_POST); exit;*/
+
+		$message4="Please Provide Numeric values";
+		$message = "Required Field Cannot Be Blank";
+
+		$this->Assign("fname",$_POST['fname'],"noempty",$message);
+
+		$this->Assign("lname",$_POST['lname'],"noempty",$message);
+		
+		if(trim($_POST['mobile'])=='')
+		{
+		$this->Assign("mobile",'',"noempty",$message);
+		}
+
+		else if(!(ctype_digit($_POST['mobile'])!=''))
+		{	
+			$this->Assign("mobile",'',"noempty","Enter only numbers");	
+		}
+		else if(strlen($_POST['mobile'])>10)
+		{ 
+			$message4="Please enter phone no upto 10 character";
+			$this->Assign("mobile","","noempty",$message4);
+		
+		}
+		
+
+		
+		$this->Assign("city",$_POST['city'],"noempty",$message);
+
+		$this->Assign("email",$_POST['email'],"noempty",$message);
+
+		if(!empty($_POST['email']) && !$this->isValidEmail(trim($_POST["email"])))
+		{
+		$this->Assign("email","","noempty","Invalid Email id");
+		}
+		
+		$this->Assign("note",$_POST['note'],"noempty",$message);
+
+		$this->Assign("medical",$_POST['medical'],"noempty",$message);
+
+		if(count($_REQUEST['group']) == '0')
+		{
+		$this->Assign("group",'',"noempty","Please Select Atleast One Group");
+		}
+		$this->PerformValidation("?do=addparticipants&type=".$_GET['type']);	
+
+	}
+}
+?>

@@ -1,0 +1,115 @@
+<AJDF:output>include file="header.html"</AJDF:output>
+<script type="text/javascript" src="js/calendar/calendar.js"></script>
+<script type="text/javascript" src="js/calendar/calendar-en.js"></script>
+<script type="text/javascript" src="js/calendar/calendar-setup.js"></script>
+<link href="css/calendar_styles.css" rel="stylesheet" type="text/css" />
+
+
+<form method="post" action="?do=editupdategroup&id=<AJDF:output>$smarty.get.id</AJDF:output>">
+  <div id="right_content">
+    <table cellpadding="0" cellspacing="0" border="0" width="98%" class="margin_table">
+      <tr>
+        <td valign="top" align="left" style="padding:5px 0 10px 0;">
+
+<AJDF:output>if $smarty.session.adduser !=''</AJDF:output>
+		<div class="status success">
+            <p class="closestatus"><a title="Close" href="">x</a></p>
+            <p><img alt="Success" src="images/icons/icon_success.png"><span>Success!</span> <AJDF:output> $smarty.session.adduser</AJDF:output>.</p>
+          </div><AJDF:output>/if</AJDF:output>
+
+</td>
+      </tr>
+      <tr>
+        <td valign="top" align="left"><div>
+            <div class="headings altheading">
+              <h2>Edit Participant Groups
+</h2>
+            </div>
+            <div class="contentbox">
+              <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                
+                <tr class="row1">
+                  <td valign="middle" align="left" class="input_txt" width=15% ><span class="err">*</span> Group Name :</td>
+                  <td valign="top" align="left" class="input_txt" width=70%><input type="text" name="name" class="input_txtbx" style="width:200px;"  id="inp_id3" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$editgroup.group_name</AJDF:output>" /></br><span class="err"><AJDF:output>$errmsg.name</AJDF:output></span></td>
+                </tr>
+
+                <tr class="row2">
+                  <td valign="middle" align="left" class="input_txt" width=15%><span class="err">*</span> Group Scope :</td>
+                  <td valign="top" align="left" class="input_txt" width=70%><input type="radio" name="scope" class="input_txtbx" id="scope" onclick="closelocal();"  value="0" <AJDF:output> if $editgroup.group_scope eq 0 </AJDF:output> checked <AJDF:output>/if </AJDF:output>/>&nbsp;&nbsp;&nbsp;&nbsp;Primary &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="scope" class="input_txtbx" id="scope" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="1" <AJDF:output> if $editgroup.group_scope eq 1 </AJDF:output> checked <AJDF:output>/if </AJDF:output> onclick="openlocal();"/>&nbsp;&nbsp;&nbsp;&nbsp;Local</br><span class="err"><AJDF:output>$errmsg.scope</AJDF:output></span></td>
+                </tr>
+		
+		<tr class="row5" ><TD valign="middle" align="left" colspan="3"><div  id="local" <AJDF:output> if $editgroup.group_scope eq 1 </AJDF:output> style="display:block;" <AJDF:output> else </AJDF:output>  style="display:none;" <AJDF:output>/if </AJDF:output> > <table cellpadding="0" cellspacing="0" border="0" width="100%">
+		<tr class="row4">
+                  <td valign="top" align="left" class="input_txt" width=15% style="padding:1px 0 0 0;"><span class="err">*</span> Select Group :</td>
+                  <td valign="top" align="left" class="input_txt" width=70%><AJDF:output>$group</AJDF:output></br><span class="err"><AJDF:output>$errmsg.group</AJDF:output></span></td>
+                </tr>
+		<tr class="row4">
+                  <td valign="middle" align="left" class="input_txt" width="15%" style="padding:1px 0 0 0;"><span class="err">*</span> City :</td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><input style="width:200px;" type="text" name="gcity" class="input_txtbx" id="inp_id3" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$editgroup.local_city</AJDF:output>" /></br><span class="err"><AJDF:output>$errmsg.gcity</AJDF:output></span></td>
+                </tr>
+		<tr class="row4">
+                  <td valign="middle" align="left" class="input_txt" width="15%" style="padding:1px 0 0 0;"><span class="err">*</span> Date Of Join From :</td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><input style="width:200px;" type="text" name="dojfrom" class="input_txtbx" id="startdate" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$editgroup.local_dojfrom</AJDF:output>" />&nbsp;&nbsp;<input type="button" id="startdatea" style="background:url(images/calendar.gif) left top no-repeat;  width:25px;outline:none; border:0;"> </br><span class="err"><AJDF:output>$errmsg.dojfrom</AJDF:output></span></td>
+                </tr>
+<tr class="row4">
+                  <td valign="middle" align="left" class="input_txt" width="15%" style="padding:1px 0 0 0;"><span class="err">*</span> Date Of Join To :</td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><input style="width:200px;" type="text" name="dojto" class="input_txtbx" id="enddate" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$editgroup.local_dojto</AJDF:output>" />&nbsp;&nbsp;<input type="button" id="enddatea" style="background:url(images/calendar.gif) left top no-repeat;  width:25px;outline:none; border:0;"></br><span class="err"><AJDF:output>$errmsg.dojto</AJDF:output></span></td>
+                </tr>
+<tr class="row4">
+                  <td valign="middle" align="left" class="input_txt" width="15%" style="padding:1px 0 0 0;"><span class="err">*</span> Age :</td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><AJDF:output>$age</AJDF:output></td>
+                </tr>
+<tr class="row4">
+                  <td valign="middle" align="left" class="input_txt" width="15%" style="padding:1px 0 0 0;"><span class="err">*</span> Educations :</td>
+                  <td valign="top" align="left" class="input_txt" width="70%"><input style="width:200px;" type="text" name="edu" class="input_txtbx" id="inp_id3" onmouseover="showTooltip('tooltip_id','inp_id3');" onmouseout="hideTooltip('tooltip_id');" value="<AJDF:output>$editgroup.local_educations</AJDF:output>" /></br><span class="err"><AJDF:output>$errmsg.edu</AJDF:output></span></td>
+                </tr>
+</table></div></TD></tr>
+		
+		<tr class="row1">
+                  <td valign="middle" align="left" class="input_txt"><span class="err">*</span> Group Description :</td>
+                  <td valign="top" align="left" class="input_txt"><textarea style="width:200px; height:100px;" name="description" id="description" class="input_txtbx" style="width: 301px; height: 109px;"><AJDF:output>$editgroup.group_decs</AJDF:output></textarea></br><span class="err"><AJDF:output>$errmsg.description</AJDF:output></span></td>
+                </tr>
+<!--		<AJDF:output>$editgroup</AJDF:output>-->
+                 <tr class="row2">
+                  <td valign="top" align="right">&nbsp;</td>
+                  <td valign="top" align="left"><input type="submit" class="submit_btn1" value="Add Group"></td>
+                </tr>
+              </table>
+              
+            </div>
+          </div></td>
+      </tr>
+</form>
+      <AJDF:output>include file="footer.html"</AJDF:output>
+<script type="text/javascript">
+function openlocal()
+{
+	if(document.getElementById('local').style.display=="none")
+	{
+		document.getElementById('local').style.display="block";
+	}
+	
+}
+function closelocal()
+{
+	if(document.getElementById('local').style.display=="block")
+	{
+		document.getElementById('local').style.display="none";
+	}
+	
+}
+</script>
+<script type="text/javascript">
+            Calendar.setup({
+              inputField    : "startdate",
+              button        : "startdatea",
+              align         : "Tr"
+            });
+          </script>
+<script type="text/javascript">
+            Calendar.setup({
+              inputField    : "enddate",
+              button        : "enddatea",
+              align         : "Tr"
+            });
+          </script>

@@ -1,0 +1,45 @@
+<?php
+
+class Model_MDemo1
+{
+	var $output = array();
+	
+	
+	
+		function insertform()
+		{
+		//$s=$_GET['id']
+			$obj=new Bin_Query();
+			$sql="INSERT INTO reg(username,age,expre,email,password,cpassword) VALUES('".$_POST['usname']."','".$_POST['txt']."','".$_POST['txt1']."','".$_POST['txt2']."','".$_POST['pwd']."','".$_POST['cpwd']."')";	
+			$obj->updateQuery($sql);
+		       echo "<p>Congratulations! You have successfully registered! </p> ";
+		 
+		}
+// 		function deleteform()
+// 		{
+// 			$obj=new Bin_Query();
+// 			$sql1="DELETE FROM reg";
+// 			
+// 		}
+
+
+		function display()
+		{
+			$obj=new Bin_Query();
+			$sql1="SELECT * FROM reg";
+			if($obj->excutequery($sql1))
+			{
+				return Display_DDemo1::showform($obj->records)
+			}	
+			
+		}
+
+		//return Display_DDemo1::shFirst($a);
+
+		
+	
+}
+
+
+
+?>

@@ -1,0 +1,94 @@
+<?php 
+
+ $system = array (
+  1 => 'Bin/Security.php',
+  2 => 'Bin/Smarty.php',
+  3 => 'Bin/Template.php',
+  4 => 'Bin/SetConfiguration.php',
+  5 => 'Bin/DbConnect.php',
+  6 => 'Bin/Query.php',
+);
+
+
+ $appsetup = array (
+  'do' => 'do',
+  'action' => 'action',
+  'escapepost' => 'yes',
+  'escapeget' => 'yes',
+  'escapecookie' => 'No',
+  'escapesession' => 'No',
+);
+ 
+
+ $libraries = array (
+  1 => 'classes/Lib/Validation/ErrorHandler.php',
+  2 => 'classes/Lib/Validation/Methods.php',
+  3 => 'classes/Lib/Validation/Handler.php',
+  4 => 'classes/Lib/Components.php',
+  5 => 'classes/Lib/Common.php',
+);
+ 
+
+ $domapping = array (
+  'temp' => 
+  array (
+    'controller' => 'CDemo1',
+    'function' => 'firstFun1',
+    'loadlib' => 'L_ALL',
+    'loadsys' => 'S_ALL',
+  ),
+  'index' => 
+  array (
+    'controller' => 'CDemo1',
+    'function' => 'firstFun',
+    'loadlib' => 'L_ALL',
+    'loadsys' => 'S_ALL',
+  ),
+  'p1:save' => 
+  array (
+    'controller' => 'CDemo',
+    'function' => 'controlFirst',
+    'loadlib' => 'L_ALL',
+    'loadsys' => 'S_ALL',
+  ),
+  'p2' => 
+  array (
+    'controller' => 'CDemo',
+    'function' => 'controlSecond',
+    'loadlib' => 'L_ALL',
+    'loadsys' => 'S_ALL',
+  ),
+  'p3' => 
+  array (
+    'controller' => 'CMyDemo',
+    'function' => 'controlThird',
+    'loadlib' => 'L_ALL',
+    'loadsys' => 'S_ALL',
+  ),
+  'demo' => 
+  array (
+    'controller' => 'CMyNewDemo',
+    'function' => 'controlNew',
+    'loadlib' => 'L_ALL',
+    'loadsys' => 'S_ALL',
+  ),
+  'demonew' => 
+  array (
+    'controller' => 'CMyNewDemo',
+    'function' => 'controlNewNew',
+    'loadlib' => 'L_ALL',
+    'loadsys' => 'S_ALL',
+  ),
+);
+ 
+
+ $globalmapping = array (
+  'invalidrequest' => 
+  array (
+    'controller' => 'CDemo',
+    'function' => 'controlIndex',
+    'loadlib' => 'L_ALL',
+    'loadsys' => 'S_ALL',
+  ),
+);
+ ?>

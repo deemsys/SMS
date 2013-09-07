@@ -1,0 +1,16 @@
+<?php
+
+class Display_DDemo1
+{
+
+function showform($arr)
+	{
+		$output='<table><tr><td>hfdghgh</td> <td>hfdghgh1</td><td>hfdghgh2</td> <td>hfdghgh3</td><td>hfdghgh4</td><td>hfdghgh5</td><td>hfdghgh6</td></tr></table>';
+		for($i=0;i<$count[$arr];$i++)
+			{
+				$output='<table>'
+				}
+}
+
+
+?>

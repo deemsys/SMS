@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>:: Medical SMS ::</title>
+<link href="css/style.css"  rel="stylesheet" type="text/css" />
+<link href="css/inner-clr.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/ddlevelsmenu.js"></script>
+
+<script  type="text/javascript" src="js/clock.js" ></script>
+
+<style type="text/css">
+.ddsubmenustyle, .ddsubmenustyle ul {
+	margin:0;
+	padding:0;
+	position: absolute;
+	left: 0;
+	top:0;
+	list-style-type: none;
+	border: 1px solid #444;
+	border-bottom:0;
+	visibility: hidden;
+	z-index: 100;
+	font-size:13px;
+}
+.ddsubmenustyle li {
+	line-height:28px;
+	font-size:13px;
+}
+.ddsubmenustyle li a {
+	display:block;
+	width:160px;
+	color:#fff;
+	text-decoration: none;
+	padding:0 10px;
+	background:#0a86af;
+	border-bottom: 1px solid #fff;
+	font-size:13px;
+}
+* html .ddsubmenustyle li { /*IE6 CSS hack*/
+	display: inline-block;
+	width: 140px; /*width of menu (include side paddings of LI A*/
+}
+.ddsubmenustyle li a:hover {
+	background-color: #eee;
+	border-bottom: 1px solid #ccc;
+	color: #333333;
+}
+.downarrowpointer { /*CSS for "down" arrow image added to top menu items*/
+	padding:0;
+	border: 0;
+}
+.rightarrowpointer { /*CSS for "right" arrow image added to drop down menu items*/
+	position: absolute;
+	padding-top: 3px;
+	left: 100px;
+	border: 0;
+}
+.ddiframeshim {
+	position: absolute;
+	z-index: 500;
+	background: transparent;
+	border-width: 0;
+	width: 0;
+	height: 0;
+	display: block;
+}
+</style>
+</head>
+<body onload="startTime();">
+
+
+
+<div id="main">
+  <div id="header">
+    <div class="logo"><a href="#"><img src="images/logo.png" alt="Company Logo" /></a></div>
+    <div class="top_link">
+      <table border="0" cellspacing="0" cellpadding="0" style="padding:0;">
+        <tr>
+          <td rowspan="2" align="right" valign="middle">&nbsp;</td>
+          <td align="right" valign="middle"><div class="date"><span id="time" class="time"></span></div></td>
+        </tr>
+        <tr>
+          <td align="right" valign="middle"><span class="cart_txt">Welcome <AJDF:output>$smarty.session.admin.username</AJDF:output> &nbsp;&nbsp;|&nbsp;&nbsp;<a href="?do=logout">Logout</a></span></td>
+        </tr>
+      </table>
+    </div>
+    <div class="clear"></div>
+    <div id="ddtopmenubar">
+      <div class="menu_container">
+        <div class="menu_l"></div>
+        <div class="menu_c">
+	<AJDF:output>php</AJDF:output>
+		$obj=new Bin_Query();
+		$sql="SELECT previlages FROM admin_log_table WHERE admin_id = '".$_SESSION['admin']['id']."'";
+		$obj->executeQuery($sql);
+		$rec=$obj->records[0]['previlages'];
+		$previ=explode(",",$rec);
+	<AJDF:output>/php</AJDF:output>	
+          <ul class="menu">
+            <li><a href="?do=dashboard" class="<AJDF:output>if $smarty.get.do eq 'dashboard'</AJDF:output>select<AJDF:output>else</AJDF:output>unselect<AJDF:output>/if</AJDF:output>"><span><img src="images/icon_01.png" alt="" style="padding:5px 5px 0 0;" />Dashboard</span></a></li>
+            <li><a href="#" class="<AJDF:output>if $smarty.get.do eq 'createstream' || $smarty.get.do eq 'viewstream' || $smarty.get.do eq 'broadcast' || $smarty.get.do eq 'viewreports' || $smarty.get.do eq 'showstream' || $smarty.get.do eq 'showstream' </AJDF:output>select<AJDF:output>else</AJDF:output>unselect<AJDF:output>/if</AJDF:output>" rel="ddsubmenu1"><span><img src="images/email.png" alt="" style="padding:5px 5px 0 0;" />Message Stream</span></a></li>
+
+            <li><a href="#" class="<AJDF:output>if $smarty.get.do eq 'addparticipants' || $smarty.get.do eq 'viewparticipants' || $smarty.get.do eq 'creategroup' || $smarty.get.do eq 'editParticipants' || $smarty.get.do eq 'partdicipantdetail' || $smarty.get.do eq 'viewgroup' || $smarty.get.do eq 'editgroup' </AJDF:output>select<AJDF:output>else</AJDF:output>unselect<AJDF:output>/if</AJDF:output>" rel="ddsubmenu2"><span><img src="images/icon_03.png" alt="" style="padding:5px 5px 0 0;" />Participants</span></a></li>
+
+            <li><a href="#" class="<AJDF:output>if $smarty.get.do eq 'addadminuser' || $smarty.get.do eq 'viewadminuser' || $smarty.get.do eq 'activityofadmin' || $smarty.get.do eq 'edituser' || $smarty.get.do eq 'userdetail'</AJDF:output>select<AJDF:output>else</AJDF:output>unselect<AJDF:output>/if</AJDF:output>" rel="ddsubmenu3"><span><img src="images/icon_06.png" alt="" style="padding:5px 5px 0 0;" />Admin User</span></a></li>
+            <li><a href="#" class="<AJDF:output>if $smarty.get.do eq 'addmailtemplate' || $smarty.get.do eq 'changepassword' || $smarty.get.do eq 'textmsg'</AJDF:output>select<AJDF:output>else</AJDF:output>unselect<AJDF:output>/if</AJDF:output>" rel="ddsubmenu4"><span><img src="images/icon_07.png" alt="" style="padding:5px 5px 0 0;" />Settings</span></a></li>
+           
+          </ul> <div class="clear"></div>
+          <script type="text/javascript">	
+						ddlevelsmenu.setup("ddtopmenubar", "topbar") 	
+					</script>
+          <ul id="ddsubmenu1" class="ddsubmenustyle">
+	<AJDF:output>php</AJDF:output>
+	if($previ[0]!="")
+	{
+	<AJDF:output>/php</AJDF:output>	<li><a href="?do=createstream">Create Message Stream</a></li>
+<AJDF:output>php</AJDF:output>
+	}
+	<AJDF:output>/php</AJDF:output>
+	<li><a href="?do=viewstream">View Stream</a></li>
+
+            <AJDF:output>php</AJDF:output>
+	if($previ[3]!="")
+	{
+	<AJDF:output>/php</AJDF:output>	<li><a href="?do=broadcast">Send Stream</a></li>
+<AJDF:output>php</AJDF:output>
+	}
+	<AJDF:output>/php</AJDF:output>
+            
+	
+            
+            <li><a href="?do=viewreports">Report</a></li>
+          </ul>
+          <ul id="ddsubmenu2" class="ddsubmenustyle">
+<AJDF:output>php</AJDF:output>
+	if($previ[4]!="")
+	{
+	<AJDF:output>/php</AJDF:output><li><a href="?do=addparticipants&type=0">Add Participants</a></li>
+<AJDF:output>php</AJDF:output>
+	}
+	<AJDF:output>/php</AJDF:output>
+            
+            <li><a href="?do=viewparticipants">View participants</a></li>
+            <li><a href="?do=creategroup&type=0">Add Participant Groups</a></li>
+		<li><a href="?do=viewgroup">View Participant Groups</a></li>
+          </ul>
+          <ul id="ddsubmenu3" class="ddsubmenustyle">
+<AJDF:output>php</AJDF:output>
+	if($previ[7]!="")
+	{
+	<AJDF:output>/php</AJDF:output><li><a href="?do=addadminuser">Add Admin User</a></li>
+<AJDF:output>php</AJDF:output>
+	}
+	<AJDF:output>/php</AJDF:output>
+            
+            <li><a href="?do=viewadminuser">View Admin User</a></li>
+            <li><a href="?do=activityofadmin">User Activity Logs</a></li>
+          </ul>
+          <ul id="ddsubmenu4" class="ddsubmenustyle">
+<AJDF:output>php</AJDF:output>
+	if($previ[10]!="")
+	{
+	<AJDF:output>/php</AJDF:output><li><a href="?do=textmsg">Text Message API settings</a></li>
+<AJDF:output>php</AJDF:output>
+	}
+	<AJDF:output>/php</AJDF:output>
+            <AJDF:output>php</AJDF:output>
+	if($previ[11]!="")
+	{
+	<AJDF:output>/php</AJDF:output><li><a href="?do=addmailtemplate&id=welcomeadminuser">Mail Templates</a></li>
+<AJDF:output>php</AJDF:output>
+	}
+	<AJDF:output>/php</AJDF:output>
+            
+            <li><a href="?do=changepassword">Change My Password</a></li>
+          </ul>
+        </div>
+        <div class="menu_r"></div>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>

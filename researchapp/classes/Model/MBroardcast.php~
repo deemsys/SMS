@@ -1,0 +1,86 @@
+<?php
+// error_reporting(E_ALL);
+class Model_MBroardcast
+{	
+	
+
+	function CreateId()
+	{
+		$con='#';
+	
+		$characters_tran='2';	
+		$possible_tran = 'abcdefghijklmnopqrstuvwxyz';
+			$code_tran = '';
+			$t = 0;
+			while ($t < $characters_tran) { 
+				$code_tran .= substr($possible_tran, mt_rand(0, strlen($possible_tran)-1), 1);
+				$t++;
+	
+			}
+				$obj=new Bin_Query();
+				$sq="SELECT MAX(SUBSTRING(broad_id,4,5)) as br_id FROM broad_cast_table"; 
+				$obj->executeQuery($sq);
+				$br_id=$obj->records[0]['br_id'];
+
+				if($br_id != '')
+				{
+
+					$br_id1=$br_id+1;
+
+				}
+				else
+				{
+
+					$br_id1='10000';
+
+
+				}
+			  $tot_id=$con.$code_tran.$br_id1;  
+			return $tot_id;
+		
+
+	}
+
+
+	function insertParticipants()
+	{
+
+		$obj=new Bin_Query();
+		$sql.="INSERT INTO participants_table (fname, lname,gender, mobile_num,city,education,note,medical_details,messaging_frequency,age,email_id,date_of_join,group_name) VALUES('".$_REQUEST['fname']."','".$_REQUEST['lname']."','".$_REQUEST['gender']."','".$_REQUEST['mobile']."','".$_REQUEST['city']."','".$_REQUEST['education']."','".$_REQUEST['note']."','".$_REQUEST['medical']."','".$_REQUEST['frequency']."','".$_REQUEST['age']."','".$_REQUEST['email']."','".date('Y-m-d h:i:s')."','";
+		for($i=0; $i<count($_REQUEST['group']); $i++)
+		{
+			$s=count($_REQUEST['group']) -1;
+			if($i == $s)
+			{
+			$sql.="".$_REQUEST['group'][$i]."";
+
+			}
+			else
+			{
+		
+			$sql.="".$_REQUEST['group'][$i].",";
+			}
+		
+		}
+		$sql.="')";
+
+		if($obj->updateQuery($sql))
+		{
+
+			$con='Added a Participant '.$_REQUEST['fname'];
+
+				Model_MParticipants::activityInfo($con);
+
+			$_SESSION['adduser_new']="Participant Created Successfully";
+			header('Location:?do=viewparticipants');
+		}
+	
+
+	}
+	
+	
+
+
+	
+}
+?>
